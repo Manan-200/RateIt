@@ -1,0 +1,42 @@
+{% extends 'base.html' %}
+{% block title %} Home {% endblock title %}
+{% block body %}
+<div class = "container my-3">
+    <h2>Post something!</h2>
+    <form action="/post", method="POST">
+
+        <div class="mb-3">
+        <label for="title" class="form-label">Title</label>
+        <input type="text" class="form-control" id="title" name="title">
+        </div>
+
+        <div class="mb-3">
+        <label for="desc" class="form-label">Description</label>
+        <input type="text" class="form-control" id="desc" name="desc">
+        </div>
+
+        <div class="mb-3">
+        <label for="tags" class="from-label">Tags</label>
+        <input type="text" class="form-control" id="tags" name="tags">
+        </div>
+
+        <div class="mb-3">
+        <label for="raterTags" class="from-label">Rating Options</label>
+        <input type="text" class="form-control" id="raterTags" name="raterTags">
+        </div>
+
+        <button type="submit" class="btn btn-dark">Post</button>
+    </form>
+    {% if blankPostError %}
+        {% if blankPostError == True %}
+        <div class="alert alert-dark my-3" role="alert">
+            Please fill all inputs
+        </div>
+        {% else %}
+        <div class="alert alert-dark my-3" role="alert">
+            Posted successfully!
+        </div>
+        {% endif %}
+    {% endif %}
+</div>
+{%endblock body%}

@@ -1,0 +1,30 @@
+{% extends 'base.html' %}
+{% block title %} {{post.title}} {% endblock title %}
+{% block body %}
+
+<div class="container my-3">
+    <form action="/discover/{{post.id}}" method="POST">
+        <h2>Title: {{post.title}}</h2>
+        <h4>Description: {{post.desc}}</h4>
+        {% for raterTag in raterTags %}
+            <h6>
+                {% set percentage = raterTag.value*100/totalVal %}
+                {{ percentage | round(2) }}% raters found this {{ raterTag.name }}
+            </h6>
+        {% endfor %}
+        <h5>Rate this post!</h5>
+
+        <div class="btn-group" role="group" aria-label="Basic radio toggle button group">
+        {% for raterTag in raterTags %}
+            <input type="radio" class="btn-check" name=ratingOptions id={{raterTag.id}} value="{{raterTag.id}}" autocomplete="off">
+            <label class="btn btn-outline-secondary" for={{raterTag.id}}>{{raterTag.name}}</label>
+        {% endfor %}
+        </div>
+
+        <div class="container my-3">
+            <button type="submit" class="btn btn-dark">Rate!</button>
+        </div>
+    </form>
+</div>
+
+{% endblock body %}
