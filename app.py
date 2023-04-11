@@ -63,7 +63,8 @@ def post():
         title = request.form["title"]
         desc = request.form["desc"]
         tags = request.form["tags"].split()
-        raterTags = request.form["raterTags"].split()
+        # raterTags = request.form["raterTags"].split()
+        raterTags = ["easy", "medium", "hard"]
         post = Post(title=title, desc=desc)
         if title == "" or desc == "" or tags == "" or raterTags == "":
             blankPostError = True
