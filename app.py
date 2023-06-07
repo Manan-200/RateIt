@@ -38,19 +38,19 @@ def getRaterTags(post: Post) -> list:
 def getMaxRating(post: Post) -> Tag:
     ratings = []
     raterTags = getRaterTags(post)
-    if len(raterTags) % 2 == 0:
-        midIndex = int(len(raterTags)/2) - 1
+    totalRatings = 0
+    for raterTag in raterTags:
+        totalRatings += raterTag.value
+    if totalRatings % 2 != 0:
+        median = (totalRatings + 1)/2
     else:
-        midIndex = int((len(raterTags) + 1)/2) - 1
-    for i in range(len(raterTags)):
-        if i != midIndex:
-            weight = abs(midIndex - i) * raterTags[i].value
-        else:
-            weight = raterTags[i].value
-        for j in range(weight):
-            ratings.append(raterTags[i])
-    if len(ratings) == 0: return raterTags[midIndex]
-    return(ratings[int(len(ratings)/2)])
+        median = int(totalRatings/2)
+
+    cumulativeF = 0
+    for raterTag in raterTags:
+        cumulativeF += raterTag.value
+        if cumulativeF >= median:
+            return raterTag
 
 @app.route("/")
 def about():
